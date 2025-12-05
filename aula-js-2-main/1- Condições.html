@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos de Declarações Condicionais</title>
+</head>
+
+<body>
+
+    <h1 id="demo"></h1>
+
+    <script>
+        // ------------------------------------------------------
+        // Declarações Condicionais em JavaScript
+        // ------------------------------------------------------
+        // As estruturas condicionais permitem executar blocos de código diferentes
+        // dependendo de uma condição ser verdadeira (true) ou falsa (false).
+        //
+        // Estruturas principais:
+        // - if
+        // - if...else
+        // - if...else if...else
+        // ------------------------------------------------------
+
+        // ------------------------------
+        // Exemplo 1: Saudação com base na hora
+        // ------------------------------
+        let hora = new Date(). getHours();
+        //Cria uma variavel chamada hora e atribui a ela a hora atual do sistema.
+
+        let = saudacao = "";
+        //cria uma variavel vazia chamada "saudacao" que sera preenchida depois.
+
+        if(hora < 18) {
+            //se a hora for menor que 18 (ou seja, antes das 18h)...
+            saudacao = "Bom dia!" //...atribui a hora se for menor que 18, a bom dia com variavel de saudacao
+        } 
+
+        else{
+        //caso contrário
+        saudacao = "Boa noite"
+        }
+
+        console.log("Exemplo 1:", saudacao);
+       
+
+        // ------------------------------
+        // Exemplo 2: Verificar se a pessoa pode dirigir
+        // ------------------------------
+        let idade = 18; //cria variavel de idade que define seu valor como 18.
+        let mensagem; //cria uma variavel de mensagem que será usada depois.
+
+        if (idade >= 18)  //verifica se a idade é maior ou igual a 18 
+        {
+            mensagem = "Você pode dirigir";
+            // SE for verdade, mostra a mensagem "Você pode dirigir"
+        }
+        
+        else{
+            //caso contraio
+            mensagem = "Você não pode dirigir";
+        }
+       
+        console.log("Exemplo 2:", mensagem)
+
+        // ------------------------------
+        // Exemplo 3: Saudação com várias condições
+        // ------------------------------
+        let saudacao2;
+
+        if(hora <10) {
+            //se a hora for menor que 10.
+            saudacao2 = "Bom dia!";
+        }
+
+        else if (hora <18) {
+            //se for menor que 18
+            saudacao2 = "Boa tarde!";
+        }
+
+        else{
+            //caso contrario
+            saudacao2 = "Boa noite!";
+        }
+       
+        console.log("Exemplo 3:", saudacao2);
+
+        // ------------------------------
+        // Exemplo 4: Link aleatório com Math.random()
+        // ------------------------------
+        let textoAleatorio;
+
+        if(Math.random () <0.5) {
+            //Math.random() gera numero aleatorios entre 0 e 1.
+            //Se o numero for menor que 0.5, executa o bloco abaixo.
+            textoAleatorio = "<a href='https://www.sp.senac.br/' target='_blank'>Visite o Senac</a>";
+            //atribui um link para o site do senac (abrira em uma nova aba)
+        }
+        else{
+            textoAleatorio = "<a href='https://www.youtube.com/' target='_blank'>Visite o Youtube</a>";
+            //atribui um link para youtube
+        }
+        document.getElementById("demo").innerHTML = textoAleatorio;
+        //Localiza o elemento com id="demo" no html e insere o link dentro dele.
+       
+    </script>
+
+</body>
+
+</html>

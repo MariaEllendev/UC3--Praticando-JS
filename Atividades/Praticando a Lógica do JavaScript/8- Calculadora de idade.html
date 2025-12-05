@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Idade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+  button {
+      background-color: gray;
+      border-radius: 15px;
+      padding: 15px 25px;
+      color: black;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: rgb(255, 254, 254);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Calculadora de Idade</h2>
+  <p id="idade">Ano atual - Ano de nascimento(2006)</p>
+  <button onclick="calcularIdade()">Calcular</button>
+
+  <script>
+    function calcularIdade() {
+      let anoNascimento = 2006;
+      let anoAtual = new Date().getFullYear();
+      let idade = anoAtual - anoNascimento;
+      document.getElementById("idade").innerHTML = anoAtual + " - " + anoNascimento + " = " + idade + " anos";
+    }
+  </script>
+
+</body>
+</html>

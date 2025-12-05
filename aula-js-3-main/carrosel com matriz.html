@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrosel com matriz e imagens no HTML</title>
+    <style>
+        body {
+            background-color: aliceblue;
+            padding: 30px;
+        }
+
+        .carrosel {
+            position: relative;
+            width: 400px;
+            height: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            background-color: rgb(0, 0, 0);
+            box-shadow: 0 4px 10px black;
+        }
+
+        .carrosel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /*Mostra a imagem inteira*/
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacite 0.6s ease;
+        }
+
+        .carrosel img.ativo {
+            opacity: 1;
+        }
+
+        .controles {
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 15px;
+            border: none;
+            border-radius: 15px;
+            background-color: black;
+            color: aliceblue;
+            cursor: pointer;
+            transition: background 0.6s;
+        }
+
+        button:hover {
+            background-color: gray;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="carrosel">
+        <img src="img/1.jpg" alt="img 1">
+        <img src="img/2.jpg" alt="img 2">
+        <img src="img/3.jpg" alt="img 3">
+        <img src="img/4.jpg" alt="img 4">
+    </div>
+    <div class="controles">
+        <button onclick="anterior()">Anterior</button>
+        <button onclick="proximo()">Próximo</button>
+    </div>
+    <script>
+        const imagens = Array.from(document.querySelectorAll('.carrosel img'));
+        let indice = 0;
+
+        //Função para exibir imagem atual
+        function mostrarImagem() {
+            //Remover a classe "ativo" de todas as imagens
+            imagens.forEach(img => img.classList.remove('ativo'));
+            //Adiciona a classe "ativo" apenas na imagem atual
+            imagens[indice].classList.add('ativo');
+        }
+
+        //Botão próximo
+        function proximo() {
+            indice++;
+            if (indice >= imagens.length) {
+                indice = 0;
+            }
+            mostrarImagem();
+        }
+
+        //botão anterior
+        function anterior(){
+            indice--;
+            if(indice <0){
+                indice =imagens.length -1;
+            }
+            mostrarImagem();
+        }
+        mostrarImagem(); //Inicia com a primeira imagem visivel
+
+        //Troca automatica a cada 4 segundos
+        setInterval(proximo, 4000)
+    </script>
+</body>
+
+</html>

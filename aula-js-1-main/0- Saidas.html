@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formas de Escrever com JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Formas de Escrever em JavaScript</h2>
+
+
+    <p id="saida">Conteúdo inicial do parágrafo.</p>
+
+
+    <button onclick="window.print()">Imprimir esta página</button>
+
+    <script>
+        // 1-escrevendo dentro de um elemento HTML usando inner
+        document.getElementById("saida").innerHTML = "<b> texto alterado com innerHTML!</b>";
+
+        // 2- escrever diretamente no corpo da página
+        document.write("<h3> Texto exibido com document.write()</h3>");
+
+        //3- mostrando mensagem com alerta
+        window.alert("Mensagem exibida com window.alert()!");
+
+        //4- escrevendo no console do navegador
+        console.log("Mensagem exibida com console.log(). Abra o console(f12) para ver");
+    </script>
+
+</body>
+
+</html>

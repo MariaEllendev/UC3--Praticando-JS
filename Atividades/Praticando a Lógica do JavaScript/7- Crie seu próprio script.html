@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Script</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    img {
+      width: 200px;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .botoes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: gray;
+      border-radius: 15px;
+      padding: 15px 25px;
+      color: black;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: rgb(255, 254, 254);
+    }
+
+    #calculo {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Olá</h1>
+
+  <p id="demo"></p>
+
+  <!-- Agrupamento dos botões -->
+  <div class="botoes">
+    <button onclick="document.getElementById('demo').innerHTML = 'Bem-Vindo, ao JavaScript'">
+      Alterar Texto
+    </button>
+
+  
+    <button onclick="calcular()">
+      Calcular Soma
+    </button>
+  </div>
+
+  <p id="calculo">10 + 5</p>
+  <body>
+
+    <h2>Céu</h2>
+
+   
+
+   
+    <img id="minhaImagem" src="https://images.pexels.com/photos/32979561/pexels-photo-32979561.jpeg" alt="Avião dia">
+
+    <br>
+
+    <button onclick="document.getElementById('minhaImagem').src='https://images.pexels.com/photos/32979561/pexels-photo-32979561.jpeg'">Dia</button>
+    <button onclick="document.getElementById('minhaImagem').src='https://images.pexels.com/photos/3643181/pexels-photo-3643181.jpeg'">Noite</button>
+
+</body>
+
+  <script>
+   
+
+    // Calcular soma
+    function calcular() {
+      let a = 10;
+      let b = 5;
+      let resultado = a + b;
+      document.getElementById("calculo").innerHTML = "10 + 5 = " + resultado;
+    }
+
+    // Mensagens iniciais
+    window.alert("Seja bem-vindo!");
+    console.log("Olá, esta é uma mensagem no console!");
+  </script>
+
+</body>
+</html>

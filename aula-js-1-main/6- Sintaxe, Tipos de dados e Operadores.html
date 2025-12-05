@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instruções e Operadores em JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            text-align: left;
+            padding: 40px;
+            color: #222;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        hr {
+            margin: 25px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Exemplo: Instruções e Operadores em JavaScript</h2>
+    <p>Abra o console do navegador (F12 → Aba <strong>Console</strong>) para ver os resultados.</p>
+
+    <script>
+        //Declaração de variaveis
+
+        //Var escopo global ou função
+        var nome = "Maria Ellen";
+        //Voce pode abrir ou trocar a variavel quantas vezes quiser.
+
+        //Let - espoco(rascunho) do bloco (moderno e recomendado)
+        let idade = 18;
+        //É uma caixa mais segura, e você pode trocar quando quiser, 
+        // mas só dentro de onde foi criado.
+
+        //Valor constante, não pode ser alterado
+        const curso = "Tecnologia da informação";
+
+        //ler a variavel
+        console.log("Nome:", nome);
+        console.log("Idade:", idade);
+        console.log("Curso:", curso);
+
+        //2- Tipos de dados
+
+        let texto = "Olá"; //string = caractere
+        let numero = 10; //number = inteiro
+        let decimal = 5.75; //number = decimal ou real
+        let booleano = true; //boolean = Lógico
+        let indefinido  // undefined = indica que uma variavel foi declarada, 
+        //mas não recebeu um valor, ou que uma função  não retorna
+        // explicitamente um valor
+        let nulo = null;
+        let lista = ["HTML", "CSS", "JAvaScript"]; //array = matrizes
+        let objeto = { nome: "Maria Ellen", idade: 18 } //objeto
+
+        console.log("\n---Tipos de Dados---");
+        console.log(typeof texto, ":", texto);
+        console.log(typeof numero, ":", numero);
+        console.log(typeof decimal, ":", decimal);
+        console.log(typeof booleano, ":", booleano);
+        console.log(typeof indefinido, ":", indefinido);
+        console.log(typeof nulo, ":", nulo);
+        console.log(typeof lista, ":", lista);
+        console.log(typeof objeto, ":", objeto);
+
+        //Typeof- É usado para verificar o tipo de uma variável, 
+        //o que é util para realizar validações e evitar erros
+
+        //3- OPERADORES ARIMÉTICOS
+        let a = 10; //declara que a variavel 'a' com o valor 10
+        let b = 3; // declara que a variavel 'b' com o valor 3
+
+        //Tudo que estiver entre " " no console.log aparecerá para o usuario no terminal
+        console.log("\n---Operadores aritiméticos---"); //exibe o titulo console
+        console.log("a + b =", a + b); //soma de a + b
+        console.log("a - b =", a - b); //subtração de a - b
+        console.log("a x b =", a * b); //multiplicação a * b
+        console.log("a / b =", a / b); //divisão de a / b
+        console.log("a % b =", a % b); //resto da divisão de a % b
+        console.log("a ** b =", a ** b); //exponenciação a ** b (a elevado a b)
+
+        //4- OPERADORES DE ATRIBUIÇÃO
+        let x = 5; //declara variavel 'x' com o valor de 5
+        console.log("\n---Operadores de atribuição---"); //titulo no console
+        console.log("x inicial =", x); //mostra o valor inicial de x que é igual a 5
+
+        x += 2; //adiciona 2 a x(x= x + 2)
+        console.log("x +=2 ->", x); //mostra um novo valor de x que é igual a 7
+
+        x -= 1 //subtrair menos 1 de x (x= x -1)
+        console.log("x -= 1 ->", x); //pega o valor atual de 7 e subtrai 1 que é igual a 6
+
+        x *= 3 //multiplicar x por 3( x = x*3)
+        console.log("x *= 3 ->", x); // pega o valor atual de 6 e multiplica por 3 que é igual a 18
+
+        x /= 2 // divide x por 2(x= x /2)
+        console.log("x /= 2 ->", x); // pega o valor atual de 18 e divide por 2 que é igual a 9
+
+        //5- OPERADORES DE COMPARAÇÃO
+        let y = 10; //variavel numerica
+        let z = "10"; //variavel string com o mesmo valor numerico
+
+        console.log("\n---Operadores de comparação---"); //titulo no console
+        //compara apenas valores (verdadeiros) 
+        console.log("y == z:", y == z); //true
+
+        //compara o valores e os tipos(falsa)
+        console.log("y === z:", y === z); //false
+
+        //compara as diferenças dos valores(falso)
+        console.log("y != z->", y != z); //false
+
+        //compara a diferença do valor e do tipo
+        console.log("y !== z->", y !== z); //true
+
+        //verificar se o y é maior que 5 (verdadeiro)
+        console.log("y > 5 :", y > 5); //true
+
+        //verificar se y é menor que 5 (falso)
+        console.log("y < 5 :", y < 5); //false
+
+        //verifica se y é maior ou igual a 10 (verdadeiro)
+        console.log("y >=10", y >= 10); //true
+
+        //verifica se y é maior ou igual a 10 (verdadeiro)
+        console.log("y <=10", y <= 10); //true
+
+        //6- OPERADORES LÓGICOS
+        let verdade = true; //variável booleana verdadeira
+        let falso = false; //variável booleana falso
+
+        console.log("\n---Operadores de lógicos---"); //titulo no console
+        console.log("verdade && falso :", verdade && falso);//operador AND(&&), AND traduzido para o português é o E
+        //EX: se a informação a e b são verdadeiras
+
+        console.log("verdade || falso :", verdade || falso); //operador or(||), or traduzido para o português é OU
+        //EX: se pelo menos uma informação for verdadeira
+
+        console.log("!verdade:", !verdade ); //operador NOT(!), NOT traduzido para o português é NÂO
+        //EX: valor original verdadeiro ele diz que é falso.
+        //  Agora se o valor original for FALSO ele diz que é verdade
+
+        //exemplo:
+        let ligado = true;
+
+        console.log("ligado", ligado); //mostra verdadeira
+        console.log("desligado:", !ligado); //mostra falso
+
+        //-7conclusão
+         console.log("\n---Fim do script.Revise cada grupo acima---"); //mensagem final
+    </script>
+</body>
+
+</html>

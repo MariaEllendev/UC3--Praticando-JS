@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batalha Naval — Matriz (JS em português)</title>
+  <style>
+    /* CSS simples */
+    :root {
+      --fundo: #0b1220;
+      --borda: #1f2937;
+      --texto: #e5e7eb;
+      --agua: #64748b;
+      --acerto: #ef4444;
+      --navio: #06b6d4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 12px;
+    }
+
+    .linha {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width:800px) {
+      .linha {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .painel {
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 12px;
+      background: #0e1628;
+    }
+
+    .grade {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 4px;
+      aspect-ratio: 1;
+    }
+
+    .celula {
+      background: #0b1324;
+      border: 1px solid #172033;
+      border-radius: 6px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+    }
+
+    .celula:hover {
+      filter: brightness(1.1);
+    }
+
+    .miss {
+      color: var(--agua);
+    }
+
+    .hit {
+      color: var(--acerto);
+      font-weight: 700;
+    }
+
+    .ship {
+      background: #092536;
+      border-color: #0a3e55;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 8px;
+      margin: 10px 0 0;
+    }
+
+    button {
+      background: #3b82f6;
+      color: white;
+      border: 0;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.sec {
+      background: #334155;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      text-align: center;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 8px;
+      background: #0b1324;
+    }
+
+    .log {
+      margin-top: 10px;
+      border: 1px dashed var(--borda);
+      padding: 10px;
+      border-radius: 10px;
+      background: #0b1324;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Batalha Naval — usando variáveis, condições e matrizes</h1>
+
+    <div class="linha">
+      <section class="painel">
+        <h3>Tabuleiro do Oponente (clique para atirar)</h3>
+        <div id="tabuleiroOponente" class="grade" aria-label="Tabuleiro do Oponente"></div>
+      </section>
+      <section class="painel">
+        <h3>Meu Tabuleiro</h3>
+        <div id="tabuleiroJogador" class="grade" aria-label="Meu Tabuleiro"></div>
+        <div class="botoes">
+          <button id="btnReiniciar">Reiniciar</button>
+          <button id="btnMostrar" class="sec">Mostrar/ocultar meus navios</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="status">
+      <div class="stat"><small>Seu placar</small>
+        <div id="placarJog">0</div>
+      </div>
+      <div class="stat"><small>Placar oponente</small>
+        <div id="placarIA">0</div>
+      </div>
+      <div class="stat"><small>Turno</small>
+        <div id="turno">Você</div>
+      </div>
+      <div class="stat"><small>Disparos</small>
+        <div id="disparos">0</div>
+      </div>
+    </div>
+    <div class="log" id="log">Clique em uma célula do tabuleiro do oponente para começar.</div>
+  </div>
+
+  <script>
+    // ==============================================================
+    // Batalha Naval — Script em português usando variáveis, condições
+    // e matrizes (arrays bidimensionais 10x10)
+    // ==============================================================
+
+    // ---------- Variáveis (constantes de configuração) ----------
+    const TAMANHO = 10;                       // tamanho da matriz (10x10)
+    const NAVIOS = [5, 4, 3, 3, 2];           // tamanhos dos navios
+
+    // Estados das células (usamos números na MATRIZ):
+    // 0 = vazio, 1 = navio, 2 = acerto, 3 = erro (água)
+    const CELULA = { VAZIO: 0, NAVIO: 1, ACERTO: 2, ERRO: 3 };
+
+    // ---------- Variáveis de jogo ----------
+    let matrizJogador;      // matriz 10x10 do jogador
+    let matrizOponente;     // matriz 10x10 do oponente (IA)
+    let naviosJogador;      // lista de navios do jogador (coordenadas)
+    let naviosOponente;     // lista de navios da IA
+    let mostrarNavios = true;  // exibir navios do jogador
+    let vezDoJogador = true;   // controle de turno
+    let terminou = false;      // fim de jogo
+    let disparos = 0;          // contador de tiros do jogador
+    let placarJog = 0;         // acertos do jogador
+    let placarIA = 0;          // acertos da IA
+
+    // IA: fila de alvos e conjunto de casas já tentadas
+    let filaAlvos = [];
+    let visitadosIA = new Set();
+
+    // ---------- Utilidades com MATRIZES ----------
+    function criarMatriz(n) {
+      // Cria uma matriz n x n preenchida com 0 (VAZIO)
+      return Array.from({ length: n }, () => Array(n).fill(CELULA.VAZIO));
+    }
+
+    function dentroDoTabuleiro(l, c) {
+      return l >= 0 && l < TAMANHO && c >= 0 && c < TAMANHO; // condição de limites
+    }
+
+    function aleatorio(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Posiciona a frota em uma MATRIZ, garantindo que navios não encostem
+    function posicionarNavios(matriz) {
+      const frota = [];
+      for (const tamanho of NAVIOS) {
+        let colocado = false;
+        let tentativas = 0;
+        while (!colocado && tentativas < 500) {
+          tentativas++;
+          const vertical = Math.random() < 0.5;           // condição: vertical ou horizontal
+          const l0 = aleatorio(0, TAMANHO - (vertical ? tamanho : 1));
+          const c0 = aleatorio(0, TAMANHO - (vertical ? 1 : tamanho));
+
+          // Verifica se as células estão livres e com 1 célula de folga ao redor
+          let ok = true;
+          const coords = [];
+          for (let i = 0; i < tamanho; i++) {
+            const l = l0 + (vertical ? i : 0);
+            const c = c0 + (vertical ? 0 : i);
+
+            if (matriz[l][c] !== CELULA.VAZIO) { ok = false; break; }
+            for (let ll = l - 1; ll <= l + 1; ll++) {
+              for (let cc = c - 1; cc <= c + 1; cc++) {
+                if (dentroDoTabuleiro(ll, cc) && matriz[ll][cc] === CELULA.NAVIO) { ok = false; }
+              }
+            }
+            coords.push([l, c]);
+          }
+          if (!ok) continue; // condição falhou, tenta de novo
+
+          // Marca navio na MATRIZ
+          for (const [l, c] of coords) { matriz[l][c] = CELULA.NAVIO; }
+          frota.push({ tamanho, celulas: new Set(coords.map(([l, c]) => `${l},${c}`)), acertos: 0, afundado: false });
+          colocado = true;
+        }
+        if (!colocado) throw new Error('Não consegui posicionar todos os navios.');
+      }
+      return frota;
+    }
+
+    // ---------- Renderização dos tabuleiros (DOM) ----------
+    const elOponente = document.getElementById('tabuleiroOponente');
+    const elJogador = document.getElementById('tabuleiroJogador');
+    const elLog = document.getElementById('log');
+    const elDisp = document.getElementById('disparos');
+    const elTurno = document.getElementById('turno');
+    const elPJ = document.getElementById('placarJog');
+    const elPI = document.getElementById('placarIA');
+
+    function renderizar() {
+      elOponente.innerHTML = '';
+      elJogador.innerHTML = '';
+
+      // Oponente (alvo do jogador): nunca mostra NAVIO antes do acerto
+      for (let l = 0; l < TAMANHO; l++) {
+        for (let c = 0; c < TAMANHO; c++) {
+          const v = matrizOponente[l][c];
+          const d = document.createElement('div');
+          d.className = 'celula';
+          if (v === CELULA.ACERTO) { d.classList.add('hit'); d.textContent = '✕'; }
+          else if (v === CELULA.ERRO) { d.classList.add('miss'); d.textContent = '•'; }
+          d.addEventListener('click', () => atirarNoOponente(l, c));
+          elOponente.appendChild(d);
+        }
+      }
+
+      // Jogador (pode mostrar navios)
+      for (let l = 0; l < TAMANHO; l++) {
+        for (let c = 0; c < TAMANHO; c++) {
+          const v = matrizJogador[l][c];
+          const d = document.createElement('div');
+          d.className = 'celula';
+          if (v === CELULA.NAVIO && mostrarNavios) { d.classList.add('ship'); }
+          if (v === CELULA.ACERTO) { d.classList.add('hit'); d.textContent = '✕'; }
+          if (v === CELULA.ERRO) { d.classList.add('miss'); d.textContent = '•'; }
+          elJogador.appendChild(d);
+        }
+      }
+
+      elDisp.textContent = String(disparos);
+      elTurno.textContent = vezDoJogador ? 'Você' : 'Oponente';
+      elPJ.textContent = String(placarJog);
+      elPI.textContent = String(placarIA);
+    }
+
+    // ---------- Lógica de tiro e condições ----------
+    function navioNaPosicao(frota, l, c) {
+      const chave = `${l},${c}`;
+      return frota.find(n => n.celulas.has(chave));
+    }
+
+    function tentarAcerto(matriz, frota, l, c) {
+      if (!dentroDoTabuleiro(l, c)) return { ok: false, repetido: false };
+      const v = matriz[l][c];
+      if (v === CELULA.ACERTO || v === CELULA.ERRO) return { ok: false, repetido: true }; // condição: já foi
+
+      if (v === CELULA.NAVIO) {
+        matriz[l][c] = CELULA.ACERTO;
+        const n = navioNaPosicao(frota, l, c);
+        if (n) {
+          n.acertos++;
+          if (n.acertos >= n.tamanho) { n.afundado = true; return { ok: true, acerto: true, afundou: true, navio: n }; }
+        }
+        return { ok: true, acerto: true, afundou: false };
+      } else { // VAZIO
+        matriz[l][c] = CELULA.ERRO;
+        return { ok: true, acerto: false };
+      }
+    }
+
+    function venceu(frota) { return frota.every(n => n.afundado); }
+
+    function atirarNoOponente(l, c) {
+      if (terminou || !vezDoJogador) return;
+      const r = tentarAcerto(matrizOponente, naviosOponente, l, c);
+      if (!r.ok) { if (!r.repetido) elLog.textContent = 'Fora do tabuleiro.'; return; }
+
+      disparos++;
+      if (r.acerto) {
+        placarJog++;
+        elLog.textContent = r.afundou ? `💥 Você afundou um navio de tamanho ${r.navio.tamanho}!` : '🎯 Acertou! Jogue novamente.';
+      } else {
+        vezDoJogador = false;
+        elLog.textContent = '💦 Água. Turno do oponente…';
+        setTimeout(jogadaIA, 500);
+      }
+      renderizar();
+
+      if (venceu(naviosOponente)) {
+        terminou = true;
+        elLog.textContent = '🏆 Você venceu!';
+      }
+    }
+
+    // ---------- IA simples (caça/seguimento) ----------
+    function vizinhosOrtogonais(l, c) {
+      return [[l - 1, c], [l + 1, c], [l, c - 1], [l, c + 1]].filter(([ll, cc]) => dentroDoTabuleiro(ll, cc));
+    }
+
+    function escolherAlvo() {
+      // dá preferência à fila de alvos (após acerto)
+      while (filaAlvos.length) {
+        const [l, c] = filaAlvos.shift();
+        const chave = `${l},${c}`;
+        if (!visitadosIA.has(chave)) return [l, c];
+      }
+      // caça: padrão xadrez
+      const cand = [];
+      for (let l = 0; l < TAMANHO; l++) {
+        for (let c = 0; c < TAMANHO; c++) {
+          const k = `${l},${c}`;
+          if (visitadosIA.has(k)) continue;
+          if ((l + c) % 2 === 0) cand.push([l, c]);
+        }
+      }
+      if (cand.length === 0) {
+        for (let l = 0; l < TAMANHO; l++) for (let c = 0; c < TAMANHO; c++) {
+          const k = `${l},${c}`; if (!visitadosIA.has(k)) cand.push([l, c]);
+        }
+      }
+      return cand[aleatorio(0, cand.length - 1)];
+    }
+
+    function jogadaIA() {
+      if (terminou) return;
+      const [l, c] = escolherAlvo();
+      const chave = `${l},${c}`; visitadosIA.add(chave);
+      const r = tentarAcerto(matrizJogador, naviosJogador, l, c);
+
+      if (r.ok && r.acerto) {
+        placarIA++;
+        elLog.textContent = '⚠️ O oponente acertou!';
+        for (const [ll, cc] of vizinhosOrtogonais(l, c)) filaAlvos.push([ll, cc]);
+        renderizar();
+        if (r.afundou) elLog.textContent = `💣 O oponente afundou seu navio de tamanho ${r.navio.tamanho}!`;
+        if (venceu(naviosJogador)) { terminou = true; elLog.textContent = '💀 Derrota!'; return; }
+        setTimeout(jogadaIA, 600); // joga novamente após acerto
+      } else if (r.ok) {
+        elLog.textContent = '😮‍💨 O oponente errou. Sua vez!';
+        vezDoJogador = true;
+        renderizar();
+      } else {
+        setTimeout(jogadaIA, 10); // raríssimo: tenta de novo
+      }
+    }
+
+    // ---------- Controle ----------
+    const btnReiniciar = document.getElementById('btnReiniciar');
+    const btnMostrar = document.getElementById('btnMostrar');
+
+    function reiniciar() {
+      matrizJogador = criarMatriz(TAMANHO);
+      matrizOponente = criarMatriz(TAMANHO);
+      naviosJogador = posicionarNavios(matrizJogador);
+      naviosOponente = posicionarNavios(matrizOponente);
+      mostrarNavios = true;
+      vezDoJogador = true;
+      terminou = false;
+      disparos = 0; placarJog = 0; placarIA = 0;
+      filaAlvos = []; visitadosIA = new Set();
+      elLog.textContent = 'Novo jogo! Dispare no tabuleiro do oponente.';
+      renderizar();
+    }
+
+    btnReiniciar.addEventListener('click', reiniciar);
+    btnMostrar.addEventListener('click', () => { mostrarNavios = !mostrarNavios; renderizar(); });
+    window.addEventListener('keydown', (e) => { if (e.key.toLowerCase() === 'm') { mostrarNavios = !mostrarNavios; renderizar(); } });
+
+    // Início
+    reiniciar();
+  </script>
+</body>
+
+</html>

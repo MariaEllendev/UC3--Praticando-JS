@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulação do DOM</title>
+</head>
+<body>
+    <h1>Manipulação de Elementos com o DOM</h1>
+
+    <!-- Exemplo 1 -->
+    <p id="mensagem">Olá!</p>
+
+    <!-- Exemplo 2 -->
+    <p class="nota">10</p>
+    <p class="nota">9</p>
+
+    <!-- Exemplo 3 -->
+    <p>Primeiro parágrafo</p>
+    <p>Segundo parágrafo</p>
+
+    <!-- Exemplo 4 -->
+    <div class="caixa destaque">Caixa colorida</div>
+
+    <!-- Exemplo 5 -->
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+
+    <script>
+        /* 
+        ===============================================================
+        DOM (Document Object Model)
+        ===============================================================
+        O DOM representa a estrutura HTML como um objeto em JavaScript.
+        Com ele, podemos acessar, modificar e estilizar qualquer elemento
+        da página usando seletores.
+
+        Principais métodos para selecionar elementos:
+        1️ getElementById()        → Seleciona 1 elemento pelo ID.
+        2️ getElementsByClassName() → Seleciona vários elementos pela classe.
+        3️ getElementsByTagName()  → Seleciona todos os elementos de uma tag.
+        4️ querySelector()         → Seleciona o primeiro elemento que corresponde a um seletor CSS.
+        5️ querySelectorAll()      → Seleciona todos os elementos que correspondem a um seletor CSS.
+        ===============================================================
+        */
+
+        // --------------------------------------------------------------
+        // 1️-document.getElementById('id')
+        // Seleciona UM elemento pelo ID e altera seu conteúdo.
+        // --------------------------------------------------------------
+ 
+
+        // --------------------------------------------------------------
+        // 2️-document.getElementsByClassName('classe')
+        // Retorna uma coleção de elementos (HTMLCollection).
+        // Podemos acessar cada item pelo índice.
+        // --------------------------------------------------------------
+
+
+
+        // --------------------------------------------------------------
+        // 3️-document.getElementsByTagName('tag')
+        // Retorna uma coleção de todos os elementos da tag informada.
+        // --------------------------------------------------------------
+
+
+        // --------------------------------------------------------------
+        // 4️- document.querySelector('seletor CSS')
+        // Retorna APENAS o primeiro elemento que corresponde ao seletor.
+        // É flexível: aceita qualquer seletor CSS (classe, id, tag, etc).
+        // --------------------------------------------------------------
+  
+
+        // --------------------------------------------------------------
+        // 5️- document.querySelectorAll('seletor CSS')
+        // Retorna TODOS os elementos que correspondem ao seletor CSS.
+        // O retorno é um NodeList (semelhante a um array).
+        // --------------------------------------------------------------
+     
+    </script>
+</body>
+</html>

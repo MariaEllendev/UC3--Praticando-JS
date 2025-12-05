@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz Bidimensional em JavaScript</title>
+</head>
+
+<body>
+    <script>
+        // ======================================================================
+        // MATRIZ BIDIMENSIONAL
+        // ======================================================================
+        // Uma matriz bidimensional é um array de arrays.
+        // Pode ser imaginada como uma "tabela" (linhas e colunas).
+        // ======================================================================
+
+        // Criando a matriz (3 linhas x 3 colunas)
+        let matriz = [
+            ["maça", "banana", "laranja"],   //linha 0
+            ["uva", "pera", "melancia"],     //linha 1
+            ["abacaxi", "kiwi", "manga"]   //linha 2
+        ];
+
+        //matriz original
+        console.log("matriz original");
+        console.table(matriz);
+
+        //acessando um elemento especifico
+        console.log("elemento na linha 1, coluna 2:", matriz [1][2]); //melancia
+
+        //alterando os elementos
+        matriz[0][1] = "morango"; //substitui "banana" por "morango"
+
+        //exibindo a matriz autoalizada
+        console.log("Matriz atualizada:");
+        console.table (matriz);
+
+        //Resultado esperado:
+        //[
+        //["maçã", "morango", "laranja"],
+        //["uva", "pera", "melancia"],
+        //["abacaxi", "kiwi", "manga"]
+        //]
+
+    </script>
+</body>
+
+</html>

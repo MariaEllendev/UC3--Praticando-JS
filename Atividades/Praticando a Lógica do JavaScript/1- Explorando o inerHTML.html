@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo ao JS</title>
+    <style>
+        body {
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin: 30px;
+            background-color: gray;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        p {
+            font-size: 1.7em;
+        }
+
+         button {
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(94, 86, 86);
+        }
+ 
+    </style>
+</head>
+<body>
+
+    <h1>Olá</h1>
+    <p id="demo"></p>
+
+    <button type="button" onclick="document.getElementById('demo').innerHTML = 'Bem-Vindo, ao JavaScript'">
+        Clique aqui
+        
+    </button>
+    
+     <button type="button" onclick="document.getElementById('demo').innerHTML = ''">
+        Voltar
+
+    </button>
+ 
+    
+</body>
+</html>

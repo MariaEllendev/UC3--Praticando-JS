@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batalha Naval — Versão Simples</title>
+  <style>
+    /* ===== CSS SIMPLES E CENTRALIZADO ===== */
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      height: 100vh; /* ocupa toda a tela */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f5f7fa;
+      color: #222;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    .linha {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    #status {
+      margin-top: 10px;
+    }
+
+    /* Tabuleiro 10x10 */
+    #tab {
+      display: grid;
+      grid-template-columns: repeat(10, 28px);
+      gap: 4px;
+      margin-top: 12px;
+      justify-content: center; /* centraliza o grid */
+    }
+
+    .c {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #bbb;
+      background: #e8eef6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .acerto {
+      background: #ffd8d8;
+      color: #b00000;
+      font-weight: bold;
+    }
+
+    .agua {
+      background: #dde7f2;
+      color: #5b728a;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Batalha Naval</h1>
+
+  <div class="linha">
+    <button id="btnNovo">Novo Jogo</button>
+    <small>Objetivo: afunde todos os navios do oponente.</small>
+  </div>
+
+  <div id="tab" aria-label="Tabuleiro do Oponente"></div>
+  <div id="status">Clique em uma célula para atirar.</div>
+
+  <script>
+    // ===========================
+    // JOGO BATALHA NAVAL SIMPLES
+    // ===========================
+
+    // --- VARIÁVEIS DE CONFIGURAÇÃO ---
+    const TAM = 10; // tamanho do tabuleiro (10x10)
+    const NAVIOS = [4, 3, 2]; // tamanhos dos navios
+
+    // Estados possíveis das células
+    // 0 = vazio | 1 = navio | 2 = acerto | 3 = água
+    const CEL = { VAZIO: 0, NAVIO: 1, ACERTO: 2, AGUA: 3 };
+
+    // --- VARIÁVEIS DE JOGO ---
+    let matriz;      // matriz que representa o tabuleiro do oponente
+    let restantes;   // células de navios ainda não acertadas
+    let fim = false; // controle do fim do jogo
+
+    // --- ELEMENTOS DO HTML ---
+    const elTab = document.getElementById('tab');
+    const elStatus = document.getElementById('status');
+    const btnNovo = document.getElementById('btnNovo');
+
+    // ===== FUNÇÕES =====
+
+    // Cria uma MATRIZ (array bidimensional) n×n preenchida com 0
+    function criarMatriz(n) {
+      return Array.from({ length: n }, () => Array(n).fill(CEL.VAZIO));
+    }
+
+    // Posiciona os navios de forma aleatória na matriz
+    function posicionarNavios(m) {
+      let total = 0; // contador de células com navio
+      for (const tam of NAVIOS) {
+        let colocado = false; // controle de posição bem-sucedida
+        while (!colocado) {
+          const vertical = Math.random() < 0.5; // decide se o navio será vertical ou horizontal
+          const l0 = Math.floor(Math.random() * (TAM - (vertical ? tam : 1))); // linha inicial
+          const c0 = Math.floor(Math.random() * (TAM - (vertical ? 1 : tam))); // coluna inicial
+
+          // Verifica se o espaço está livre (sem sobreposição)
+          let livre = true;
+          for (let i = 0; i < tam; i++) {
+            const l = l0 + (vertical ? i : 0);
+            const c = c0 + (vertical ? 0 : i);
+            if (m[l][c] !== CEL.VAZIO) { livre = false; break; } // se ocupado, não pode
+          }
+          if (!livre) continue; // tenta outra posição
+
+          // Marca o navio na MATRIZ
+          for (let i = 0; i < tam; i++) {
+            const l = l0 + (vertical ? i : 0);
+            const c = c0 + (vertical ? 0 : i);
+            m[l][c] = CEL.NAVIO;
+            total++;
+          }
+          colocado = true;
+        }
+      }
+      return total; // retorna o total de células com navio
+    }
+
+    // Renderiza o tabuleiro na tela
+    function render() {
+      elTab.innerHTML = ''; // limpa o conteúdo anterior
+      for (let l = 0; l < TAM; l++) {
+        for (let c = 0; c < TAM; c++) {
+          const d = document.createElement('div'); // cria uma célula
+          d.className = 'c';
+          const v = matriz[l][c];
+
+          // muda a aparência conforme o estado da célula
+          if (v === CEL.ACERTO) { d.classList.add('acerto'); d.textContent = '✕'; }
+          if (v === CEL.AGUA) { d.classList.add('agua'); d.textContent = '•'; }
+
+          // adiciona evento de clique
+          d.addEventListener('click', () => atirar(l, c));
+          elTab.appendChild(d);
+        }
+      }
+    }
+
+    // Função chamada ao clicar em uma célula
+    function atirar(l, c) {
+      if (fim) return; // se o jogo acabou, não faz nada
+
+      const v = matriz[l][c]; // pega o valor da célula
+
+      // Se já foi clicada, avisa e sai
+      if (v === CEL.ACERTO || v === CEL.AGUA) {
+        elStatus.textContent = 'Casa já revelada. Tente outra.';
+        return;
+      }
+
+      // Se for navio, marca como acerto
+      if (v === CEL.NAVIO) {
+        matriz[l][c] = CEL.ACERTO;
+        restantes--;
+        elStatus.textContent = '🎯 Acertou!';
+      } else { // senão, é água
+        matriz[l][c] = CEL.AGUA;
+        elStatus.textContent = '💦 Água.';
+      }
+
+      render(); // atualiza o tabuleiro
+
+      // Se não restam navios, fim de jogo
+      if (restantes === 0) {
+        fim = true;
+        elStatus.textContent = '🏆 Você afundou todos os navios!';
+      }
+    }
+
+    // Reinicia o jogo
+    function novoJogo() {
+      matriz = criarMatriz(TAM);         // cria a matriz 10x10
+      restantes = posicionarNavios(matriz); // posiciona os navios
+      fim = false;                       // reseta o estado
+      elStatus.textContent = 'Novo jogo! Clique para atirar.';
+      render();                          // desenha o tabuleiro
+    }
+
+    // Botão "Novo Jogo"
+    btnNovo.addEventListener('click', novoJogo);
+
+    // Inicializa o jogo automaticamente
+    novoJogo();
+  </script>
+</body>
+
+</html>

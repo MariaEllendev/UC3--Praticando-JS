@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lógica</title>
+</head>
+<body>
+    <h2>Comparação e Lógica</h2>
+
+<script>
+  let idade = 18;
+  let temCarteira = true;
+
+  // Pode dirigir se tiver 18 anos ou mais E tiver carteira
+  let podeDirigir = idade >= 18 && temCarteira;
+
+  console.log("Idade:", idade);
+  console.log("Tem carteira?", temCarteira);
+  console.log("Pode dirigir?", podeDirigir);
+
+ 
+  console.log("É menor de idade?", idade < 18);
+  console.log("Tem carteira OU é maior de idade?", temCarteira || idade > 18);
+  console.log("NÃO tem carteira?", !temCarteira);
+</script>
+
+</body>
+</html>

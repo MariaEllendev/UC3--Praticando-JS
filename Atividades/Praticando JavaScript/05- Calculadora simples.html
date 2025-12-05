@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples Otimizada</title>
+</head>
+<body>
+    <script>
+        // Pede os dois números
+        let num1 = parseFloat(prompt("Digite o primeiro número:"));
+        let num2 = parseFloat(prompt("Digite o segundo número:"));
+
+        // Otimização: Pede um número para a operação, simplificando a entrada do usuário
+        let operacao = prompt(
+            "Escolha a operação digitando o número correspondente:\n" +
+            "1: Adição (+)\n" +
+            "2: Subtração (-)\n" +
+            "3: Multiplicação (*)\n" +
+            "4: Divisão (/)"
+        );
+        let resultado;
+
+        // Usa condicionais (if/else if) para realizar a operação baseada no número
+        if (operacao === '1') {
+            resultado = num1 + num2;
+            alert("O resultado de Adição é: " + resultado);
+        }
+        else if (operacao === '2') {
+            resultado = num1 - num2;
+            alert("O resultado de Subtração é: " + resultado);
+        }
+        else if (operacao === '3') {
+            resultado = num1 * num2;
+            alert("O resultado de Multiplicação é: " + resultado);
+        }
+        else if (operacao === '4') {
+            // VERIFICAÇÃO DE DIVISÃO POR ZERO
+            if (num2 !== 0) {
+                resultado = num1 / num2;
+                alert("O resultado de Divisão é: " + resultado);
+            } else {
+                alert("Erro: Divisão por zero não é permitida.");
+            }
+        }
+        else {
+            alert("Opção de operação inválida. Por favor, escolha um número de 1 a 4.");
+        }
+    </script>
+</body>
+</html>

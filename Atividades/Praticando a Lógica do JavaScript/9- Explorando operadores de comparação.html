@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorando</title>
+</head>
+<body>
+    <h2>Comparações</h2>
+
+<script>
+  let num1 = 10;
+  let num2 = 20;
+  let texto1 = "JavaScript";
+  let texto2 = "javascript";
+
+  console.log("num1 == num2:", num1 == num2);
+  console.log("num1 < num2:", num1 < num2);
+  console.log("texto1 == texto2:", texto1 == texto2); // "JavaScript" não é igual a "javascript" porque o J maiúsculo é diferente do j minúsculo.
+  console.log("texto1 === texto2:", texto1 === texto2); // Esse operador (===) compara valor e tipo. Ambos são do tipo string, então o tipo é igual.
+// Mas o valor ainda é diferente por causa da diferença entre "JavaScript" e "javascript". Então o resultado continua sendo false.
+
+</script>
+</body>
+</html>

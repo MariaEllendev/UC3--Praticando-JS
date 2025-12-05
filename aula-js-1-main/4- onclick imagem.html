@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que o JavaScript pode fazer?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f9fc;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        button {
+            margin-top: 25px;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+
+        }
+
+        button:hover {
+            background-color: rgb(83, 81, 81);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>O que o JavaScript pode fazer?</h2>
+
+    <p>O JavaScript pode mudar os <strong>atributos HTML</strong>, como o <code>src</code> de uma imagem.</p>
+    <p>Neste exemplo, ele liga e desliga uma lâmpada!</p>
+
+    <!-- Imagem inicial (apagada) -->
+    <img id="minhaImagem" src="./image/Acesa.gif" alt="Lâmpada apagada">
+
+    <br>
+
+    <!-- Botões com comandos diretos -->
+    <button onclick="document.getElementById('minhaImagem').src='./image/Acesa.gif'">Ligar a luz</button>
+    <button onclick="document.getElementById('minhaImagem').src='./image/Apagada.png'">Desligar a luz</button>
+
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifica Voto</title>
+</head>
+
+<body>
+  <script>
+    // ---------------------------------------------------------
+    // Algoritmo: verifica_voto
+    // Objetivo: ler a idade e verificar se a pessoa pode votar
+    // ---------------------------------------------------------
+
+    // A função prompt() exibe uma caixa de entrada para o usuário digitar algo.
+    // O texto dentro dos parênteses é a mensagem que aparece na janela.
+    // Exemplo: prompt("Digite a idade da pessoa: ")
+    //
+    // O valor digitado pelo usuário é retornado como TEXTO (string).
+    // Para transformá-lo em número inteiro, usamos a função parseInt().
+    //
+    // Assim, parseInt(prompt("Digite a idade da pessoa: ")) faz duas coisas:
+    // 1. Mostra a mensagem na tela pedindo a idade.
+    // 2. Converte o valor digitado para um número inteiro.
+    //
+    // O resultado dessa expressão é armazenado dentro da variável idade.
+let idade = parseInt(prompt("Digite a idade da pessoa"));
+
+    if(idade >=16) {
+  alert("A pessoa pode votar");
+    }
+    else{
+      alert("A pessoa não pode votar");
+    }
+   
+
+  </script>
+</body>
+
+</html>

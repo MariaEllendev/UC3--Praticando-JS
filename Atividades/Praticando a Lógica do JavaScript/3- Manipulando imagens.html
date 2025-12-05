@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que o JavaScript pode fazer?</title>
+    <style>
+        body {
+         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+            background-color: #7e8081;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #000000;
+        }
+
+        img{
+            width: 250px;
+        }
+
+        button {
+            margin-top: 25px;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+
+        }
+
+        button:hover {
+            background-color: rgb(151, 148, 148);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Céu</h2>
+
+   
+
+   
+    <img id="minhaImagem" src="https://images.pexels.com/photos/32979561/pexels-photo-32979561.jpeg" alt="Avião dia">
+
+    <br>
+
+    <button onclick="document.getElementById('minhaImagem').src='https://images.pexels.com/photos/32979561/pexels-photo-32979561.jpeg'">Dia</button>
+    <button onclick="document.getElementById('minhaImagem').src='https://images.pexels.com/photos/3643181/pexels-photo-3643181.jpeg'">Noite</button>
+
+</body>
+
+</html>

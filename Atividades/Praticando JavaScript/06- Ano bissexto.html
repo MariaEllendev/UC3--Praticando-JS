@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ano Bissexto</title>
+</head>
+<body>
+    <script>
+        // Pede o ano e o converte para inteiro
+        let ano = parseInt(prompt("Digite um ano para verificar se é bissexto:"));
+
+        // Regra para ano bissexto: (Divisível por 4 E Não Divisível por 100) OU (Divisível por 400)
+        let isBissexto = (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
+
+        if (isBissexto) {
+            alert("O ano " + ano + " é bissexto.");
+        } else {
+            alert("O ano " + ano + " não é bissexto.");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide automático</title>
+    <style>
+        * {box-sizing: border-box;}
+        body {font-family: Verdana, sans-serif;}
+        .mySlides {display: none;}
+        img {vertical-align: middle; width: 100%; height: auto;} /* Torna a imagem responsiva */
+
+        /* Recipiente de apresentação de slides */
+        .slideshow-container {
+            max-width: 600px; /* Aumenta o tamanho máximo do slideshow */
+            position: relative;
+            margin: auto;
+        }
+
+        /* Os pontos/balas/indicadores */
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .active {
+            background-color: #717171;
+        }
+
+        /* Fading animation */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: .4} 
+            to {opacity: 1}
+        }
+    </style>
+</head>
+<body>
+
+<h2>Apresentação de slides automática</h2>
+<p>Altere a imagem a cada 2 segundos</p>
+
+<div class="slideshow-container">
+
+    <div class="mySlides fade">
+        <img src="Cafe da tarde.jpg" alt="Café da Tarde">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="Iorgute.jpg" alt="Iogurte">
+    </div>
+    
+    <div class="mySlides fade">
+        <img src="Relax.jpg" alt="Relaxar">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="Vibe.jpg" alt="Vibe">
+    </div>
+</div>
+
+<br>
+
+<div style="text-align:center">
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+    <span class="dot"></span> 
+</div>
+
+<script>
+
+</script>
+
+</body>
+</html>
